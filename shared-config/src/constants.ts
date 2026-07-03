@@ -28,6 +28,24 @@ export const PLANET_EXTRACTION_TICK_MS = 60_000;
 export const PLANET_BASE_BUILD_MS = 1_000;
 
 // ---------------------------------------------------------------------------
+// Unit taxonomy
+// Shared by server unit catalog and game clients.
+// ---------------------------------------------------------------------------
+
+export const UNIT_CATEGORIES = ["vehicule", "building"] as const;
+
+export type UnitCategory = (typeof UNIT_CATEGORIES)[number];
+
+export const UNIT_SIZES = ["small", "medium", "large"] as const;
+
+export type UnitSize = (typeof UNIT_SIZES)[number];
+
+/** Shapes a unit rule can span on the planet hex grid. */
+export const UNIT_RULE_RANGES = ["hexagon"] as const;
+
+export type UnitRuleRange = (typeof UNIT_RULE_RANGES)[number];
+
+// ---------------------------------------------------------------------------
 // Unit instance lifecycle
 // Shared by server REST/WebSocket payloads and game clients.
 // ---------------------------------------------------------------------------
@@ -44,18 +62,35 @@ export const UNIT_INSTANCE_STATUSES = [
 
 export type UnitInstanceStatus = (typeof UNIT_INSTANCE_STATUSES)[number];
 
-export const API_PREFIX = "/infinity";
+// ---------------------------------------------------------------------------
+// Celestial taxonomy
+// Shared by server generation/schemas and game clients.
+// ---------------------------------------------------------------------------
 
-export const SOCKET_EVENTS = {
-  CONNECT: "connect",
-  DISCONNECT: "disconnect",
-  PLAYER_JOIN: "player:join",
-  PLAYER_LEAVE: "player:leave",
-  PLAYER_MOVE: "player:move",
-  CHAT_MESSAGE: "chat:message",
-  RESOURCE_HARVEST: "resource:harvest",
-  PLANET_COLONIZE: "planet:colonize",
-} as const;
+export const STAR_TYPES = ["yellow", "red", "blue", "white"] as const;
+
+export type StarType = (typeof STAR_TYPES)[number];
+
+export const PLANET_TYPES = ["rocky", "gas", "ice", "lava"] as const;
+
+export type PlanetType = (typeof PLANET_TYPES)[number];
+
+/** Planet types a player can enter/colonize (gas giants are not enterable). */
+export type EnterablePlanetType = Exclude<PlanetType, "gas">;
+
+export const ENTERABLE_PLANET_TYPES: readonly EnterablePlanetType[] =
+  PLANET_TYPES.filter((type): type is EnterablePlanetType => type !== "gas");
+
+export const RESOURCE_RARITIES = [
+  "common",
+  "rare",
+  "epic",
+  "legendary",
+] as const;
+
+export type ResourceRarity = (typeof RESOURCE_RARITIES)[number];
+
+export const API_PREFIX = "/infinity";
 
 export const PAGINATION = {
   DEFAULT_PAGE_SIZE: 20,

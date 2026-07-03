@@ -10,10 +10,10 @@ Agent guide for the `packages/` workspace. These packages are shared across all 
 
 | Package | Import name | Role | Used today |
 |---------|-------------|------|------------|
-| [`shared-config/`](shared-config/) | `@infinity/shared-config` | Constants, colors, terrain resources, socket event names | Yes — server + terra-view |
-| [`shared-ui/`](shared-ui/) | `@infinity/shared-ui` | Presentation-only React components, hooks, theme | Scaffolded — not yet imported by any app |
-| [`shared-utils/`](shared-utils/) | `@infinity/shared-utils` | Pure utility functions (formatters, math, random, helpers) | Scaffolded — not yet imported by any app |
-| [`shared-types/`](shared-types/) | `@infinity/shared-types` | Cross-app TypeScript interfaces (Player, Item, events) | Scaffolded — not yet imported by any app |
+| [`shared-config/`](shared-config/) | `@infinity/shared-config` | Constants, colors, terrain resources, socket event names | Yes — server + terra-view + solaris |
+| [`shared-ui/`](shared-ui/) | `@infinity/shared-ui` | Presentation-only React components, hooks, theme | Yes — terra-view (`CargoGauge`, `CargoPanel`) |
+| [`shared-utils/`](shared-utils/) | `@infinity/shared-utils` | Pure utility functions (formatters, math, random, helpers, game) | Yes — server + terra-view |
+| [`shared-types/`](shared-types/) | `@infinity/shared-types` | Cross-app TypeScript interfaces (Player, Item, events, units) | Scaffolded — server imports unit types |
 
 ---
 
@@ -29,7 +29,7 @@ Run from the **package directory** (`packages/<name>/`), not the monorepo root.
 | `npm run test` | Run unit tests once (shared-ui, shared-utils) |
 | `npm run test:watch` | Watch mode tests |
 
-From the **monorepo root:**
+From the **Infinity monorepo root** (not this repo — see parent [AGENTS.md](../AGENTS.md)):
 
 ```
 npm run test:packages   # runs tests for shared-ui + shared-utils
@@ -58,8 +58,9 @@ npm run test:packages   # runs tests for shared-ui + shared-utils
 - No side effects, no global state.
 
 ### `shared-types`
-- Zero runtime dependencies — compile-time interfaces only, no classes or constants.
-- Currently scaffolded but **not yet consumed** by any app. Local types in each sub-project take precedence.
+- Depends on `@infinity/shared-config` for unit taxonomy types (`UnitCategory`, `UnitSize`).
+- Compile-time interfaces only — no classes or constants defined here.
+- Currently consumed by the server for unit catalog/build types. Local types in each sub-project take precedence elsewhere.
 - When a type here and a local sub-project type diverge, treat the sub-project type as the source of truth until a deliberate migration is agreed on.
 
 ---
@@ -67,22 +68,24 @@ npm run test:packages   # runs tests for shared-ui + shared-utils
 ## Current exports
 
 ### `shared-config`
-`colors` · `theme` (colors, spacing, typography, borderRadius, animation) · `APP_NAME` · `API_PREFIX` · `SOCKET_EVENTS` · `PAGINATION` · `XP_THRESHOLDS` · `PLANET_HEX_LAYOUT_WIDTH/HEIGHT` · `PLANET_BASE_MOVEMENT_MS_PER_HEX` · `timings` · `breakpoints` · `zIndex` · `HEX_BIOMES` · `HexBiome` · `TerrainResourceEntry` · `PERMANENT_TERRAIN_RESOURCES` · `OCCASIONAL_TERRAIN_RESOURCES` · `ResourceType` · `RESOURCE_TYPES` · `getResourceIdsForBiome`
+`colors` · `ColorKey` · `APP_NAME` · `API_PREFIX` · `GALAXY_EVENTS` · `SYSTEM_EVENTS` · `PLANET_EVENTS` · `UNIT_EVENTS` · `GalaxyEvent` · `SystemEvent` · `PlanetEvent` · `UnitEvent` · `PAGINATION` · `XP_THRESHOLDS` · `PLANET_HEX_LAYOUT_WIDTH/HEIGHT` · `PLANET_BASE_MOVEMENT_MS_PER_HEX` · `PLANET_EXTRACTION_TICK_MS` · `PLANET_BASE_BUILD_MS` · `UNIT_CATEGORIES` · `UnitCategory` · `UNIT_SIZES` · `UnitSize` · `UNIT_RULE_RANGES` · `UnitRuleRange` · `UNIT_INSTANCE_STATUSES` · `UnitInstanceStatus` · `STAR_TYPES` · `StarType` · `PLANET_TYPES` · `PlanetType` · `ENTERABLE_PLANET_TYPES` · `EnterablePlanetType` · `RESOURCE_RARITIES` · `ResourceRarity` · `timings` · `breakpoints` · `zIndex` · `HEX_BIOMES` · `HexBiome` · `TerrainResourceEntry` · `OccasionalTerrainResourceEntry` · `PERMANENT_TERRAIN_RESOURCES` · `OCCASIONAL_TERRAIN_RESOURCES` · `ResourceType` · `RESOURCE_TYPES` · `getResourceIdsForBiome`
 
 ### `shared-ui`
-Components: `Button` · `Spinner` · `HealthBar` · `PlayerAvatar` · `CargoPanel`
+Components: `Button` · `Spinner` · `HealthBar` · `PlayerAvatar` · `CargoPanel` · `CargoGauge`
+Types: `UnitCargo` · `CargoResource` · `CargoPanelProps` · `CargoGaugeProps`
 Hooks: `useDebounce` · `useKeyboard` · `useResize`
-Theme: `theme` (re-exported from `src/theme/index.ts`)
+Theme: `theme` · `Theme` (from `src/theme/index.ts` — colors, spacing, typography, borderRadius, animation)
 Icons: none yet
 
 ### `shared-utils`
 `formatters/`: `formatNumber` · `formatDuration` · `formatDate`
 `math/`: `clamp` · `lerp` · `distance2D` · `toRadians` · `toDegrees`
-`random/`: (see `src/random/index.ts`)
+`random/`: `randomInt` · `randomFloat` · `randomPick` · `shuffle` · `seededRandom`
 `helpers/`: `slugify` · `capitalize` · `omit` · `groupBy` · `debounce`
+`game/`: `isResourceTypeAllowed` · `computeExtractionYield` · `computeExtractionYieldPerTick` · `getCargoUsed` · `isCargoFull` · `clampYieldToCargoCapacity` · `addYieldToCargo` · `UnitCargo`
 
 ### `shared-types`
-`Player` · `PlayerSummary` · `Item` · `InventorySlot` · `ItemRarity` · `Packet` · `ErrorPacket` · `GameEvent` · `GameEventName` · `ChatMessageEvent` · `PlayerMoveEvent`
+`Player` · `PlayerSummary` · `Item` · `InventorySlot` · `ItemRarity` · `Packet` · `ErrorPacket` · `GameEvent` · `GameEventName` · `ChatMessageEvent` · `PlayerMoveEvent` · `UnitRuleRange` · `UnitRule` · `UnitCargoCapability` · `UnitExtractionCapability` · `UnitBuildTarget` · `UnitBuildingCapability` · `UnitCapabilities` · `UnitRecipeIngredients` · `UnitRecipe` · `UnitTypeDefinition` · `BuildableUnitType`
 
 ---
 
@@ -90,8 +93,8 @@ Icons: none yet
 
 Tests exist for `shared-ui` and `shared-utils`. The framework is **Vitest**.
 
-- `shared-ui` uses jsdom + `@testing-library/react` — see `packages/shared-ui/tests/`
-- `shared-utils` uses node environment — see `packages/shared-utils/tests/`
+- `shared-ui` uses jsdom + `@testing-library/react` — see `shared-ui/tests/`
+- `shared-utils` uses node environment — see `shared-utils/tests/` (includes `game/` tests)
 - `shared-config` and `shared-types` have no tests (constants and types respectively)
 
 ---
