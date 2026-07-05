@@ -29,6 +29,20 @@ export function clampYieldToCargoCapacity(
   return Math.min(yieldAmount, remainingCapacity);
 }
 
+/** True when `cargo` contains at least every resource quantity in `ingredients`. */
+export function hasEnoughCargoForRecipe(
+  cargo: UnitCargo,
+  ingredients: Record<string, number>,
+): boolean {
+  for (const [resourceId, required] of Object.entries(ingredients)) {
+    if ((cargo[resourceId] ?? 0) < required) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 /** Returns a new cargo with `amount` of `resourceType` added (no-op for amount ≤ 0). */
 export function addYieldToCargo(
   cargo: UnitCargo,

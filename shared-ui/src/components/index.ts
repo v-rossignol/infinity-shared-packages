@@ -4,3 +4,6 @@ export * from "./HealthBar";
 export * from "./PlayerAvatar";
 export * from "./CargoPanel";
 export * from "./CargoGauge";
+export * from "./BuildableUnitsPanel";
+export * from "./GaragePanel";
+export * from "./TransferPanel";

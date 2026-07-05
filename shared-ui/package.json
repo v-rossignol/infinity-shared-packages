@@ -18,6 +18,10 @@
     "test": "vitest run",
     "test:watch": "vitest"
   },
+  "dependencies": {
+    "@infinity/shared-types": "^0.1.0",
+    "@infinity/shared-utils": "^0.1.0"
+  },
   "peerDependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0"

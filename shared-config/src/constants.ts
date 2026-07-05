@@ -12,6 +12,32 @@ export const PLANET_HEX_LAYOUT_WIDTH = 80;
 /** Height of one hex cell in pixels. */
 export const PLANET_HEX_LAYOUT_HEIGHT = 92;
 
+/**
+ * Pointy-top hex vertices as normalized fractions of cell width/height (0–1).
+ * Shared by terra-view clip-path, build placement, and server surface travel.
+ */
+export const PLANET_HEX_VERTEX_FRACTIONS = [
+  { x: 0.5, y: 0 },
+  { x: 1, y: 0.25 },
+  { x: 1, y: 0.75 },
+  { x: 0.5, y: 1 },
+  { x: 0, y: 0.75 },
+  { x: 0, y: 0.25 },
+] as const;
+
+/**
+ * Each planet hex is subdivided into this many cells per axis for build placement.
+ * Must be >= 3 so large units (3×3 footprint) can be placed with margin.
+ * Footprint spans `getBuildFootprintCells(size)` contiguous cells (see shared-utils).
+ */
+export const PLANET_HEX_BUILD_GRID_DIVISIONS = 6;
+
+/**
+ * Maximum surface distance (in hex units) for garage cargo transfer.
+ * 1 hex unit = largest vertex-to-vertex distance inside one hex cell.
+ */
+export const PLANET_GARAGE_RANGE_HEX = 0.16;
+
 // ---------------------------------------------------------------------------
 // Unit movement speed calibration
 // speed=1 means 1 hex per 2 minutes (calibrated as the time to cross the

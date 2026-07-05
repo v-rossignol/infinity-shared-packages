@@ -3,6 +3,7 @@ import {
   addYieldToCargo,
   clampYieldToCargoCapacity,
   getCargoUsed,
+  hasEnoughCargoForRecipe,
   isCargoFull,
 } from "../../src/game/unit-cargo";
 
@@ -39,6 +40,16 @@ describe("clampYieldToCargoCapacity", () => {
   it("returns zero when full or given non-positive yield", () => {
     expect(clampYieldToCargoCapacity(4, { wood: 10 }, 10)).toBe(0);
     expect(clampYieldToCargoCapacity(0, { wood: 1 }, 10)).toBe(0);
+  });
+});
+
+describe("hasEnoughCargoForRecipe", () => {
+  it("is true when cargo meets or exceeds every ingredient", () => {
+    const cargo = { wood: 100, stone: 30 };
+    const ingredients = { wood: 40, stone: 25 };
+
+    expect(hasEnoughCargoForRecipe(cargo, ingredients)).toBe(true);
+    expect(hasEnoughCargoForRecipe({ wood: 10 }, ingredients)).toBe(false);
   });
 });
 

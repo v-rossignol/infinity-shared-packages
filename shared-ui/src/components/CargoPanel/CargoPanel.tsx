@@ -1,14 +1,11 @@
 import React from "react";
+import type { CargoResource } from "@infinity/shared-types";
 import { CargoGauge } from "../CargoGauge";
 import { theme } from "../../theme";
 
 export type UnitCargo = Record<string, number>;
 
-export interface CargoResource {
-  id: string;
-  quantity: number;
-}
-
+export type { CargoResource };
 export interface CargoPanelProps {
   /** Unit or container label shown as the panel title. */
   title?: string;

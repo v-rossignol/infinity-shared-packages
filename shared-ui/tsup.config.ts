@@ -6,6 +6,8 @@ export default defineConfig({
   dts: true,
   clean: true,
   sourcemap: true,
-  jsx: "react-jsx",
-  external: ["react", "react-dom"],
+  esbuildOptions(options) {
+    options.jsx = "automatic";
+  },
+  external: ["react", "react-dom", "@infinity/shared-utils", "@infinity/shared-types"],
 });

@@ -44,11 +44,19 @@ export interface UnitBuildingCapability {
   buildings?: UnitBuildTarget;
 }
 
+/**
+ * Ability to park and store vehicles.
+ * Each key is a vehicle size; the value is how many of that size fit in the garage.
+ * Example: `{ small: 1, medium: 0, large: 0 }`.
+ */
+export type UnitGarageCapability = Record<UnitSize, number>;
+
 /** Optional capability blocks attached to a unit type definition. */
 export interface UnitCapabilities {
   cargo?: UnitCargoCapability;
   extraction?: UnitExtractionCapability;
   building?: UnitBuildingCapability;
+  garage?: UnitGarageCapability;
 }
 
 /** Resource id → quantity required to build this unit type. */

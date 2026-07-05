@@ -68,7 +68,7 @@ npm run test:packages   # runs tests for shared-ui + shared-utils
 ## Current exports
 
 ### `shared-config`
-`colors` · `ColorKey` · `APP_NAME` · `API_PREFIX` · `GALAXY_EVENTS` · `SYSTEM_EVENTS` · `PLANET_EVENTS` · `UNIT_EVENTS` · `GalaxyEvent` · `SystemEvent` · `PlanetEvent` · `UnitEvent` · `PAGINATION` · `XP_THRESHOLDS` · `PLANET_HEX_LAYOUT_WIDTH/HEIGHT` · `PLANET_BASE_MOVEMENT_MS_PER_HEX` · `PLANET_EXTRACTION_TICK_MS` · `PLANET_BASE_BUILD_MS` · `UNIT_CATEGORIES` · `UnitCategory` · `UNIT_SIZES` · `UnitSize` · `UNIT_RULE_RANGES` · `UnitRuleRange` · `UNIT_INSTANCE_STATUSES` · `UnitInstanceStatus` · `STAR_TYPES` · `StarType` · `PLANET_TYPES` · `PlanetType` · `ENTERABLE_PLANET_TYPES` · `EnterablePlanetType` · `RESOURCE_RARITIES` · `ResourceRarity` · `timings` · `breakpoints` · `zIndex` · `HEX_BIOMES` · `HexBiome` · `TerrainResourceEntry` · `OccasionalTerrainResourceEntry` · `PERMANENT_TERRAIN_RESOURCES` · `OCCASIONAL_TERRAIN_RESOURCES` · `ResourceType` · `RESOURCE_TYPES` · `getResourceIdsForBiome`
+`colors` · `ColorKey` · `APP_NAME` · `API_PREFIX` · `GALAXY_EVENTS` · `SYSTEM_EVENTS` · `PLANET_EVENTS` · `UNIT_EVENTS` · `GalaxyEvent` · `SystemEvent` · `PlanetEvent` · `UnitEvent` · `PAGINATION` · `XP_THRESHOLDS` · `PLANET_HEX_LAYOUT_WIDTH/HEIGHT` · `PLANET_BASE_MOVEMENT_MS_PER_HEX` · `PLANET_EXTRACTION_TICK_MS` · `PLANET_BASE_BUILD_MS` · `PLANET_HEX_VERTEX_FRACTIONS` · `PLANET_HEX_BUILD_GRID_DIVISIONS` · `UNIT_CATEGORIES` · `UnitCategory` · `UNIT_SIZES` · `UnitSize` · `UNIT_RULE_RANGES` · `UnitRuleRange` · `UNIT_INSTANCE_STATUSES` · `UnitInstanceStatus` · `STAR_TYPES` · `StarType` · `PLANET_TYPES` · `PlanetType` · `ENTERABLE_PLANET_TYPES` · `EnterablePlanetType` · `RESOURCE_RARITIES` · `ResourceRarity` · `timings` · `breakpoints` · `zIndex` · `HEX_BIOMES` · `HexBiome` · `TerrainResourceEntry` · `OccasionalTerrainResourceEntry` · `PERMANENT_TERRAIN_RESOURCES` · `OCCASIONAL_TERRAIN_RESOURCES` · `ResourceType` · `RESOURCE_TYPES` · `getResourceIdsForBiome`
 
 ### `shared-ui`
 Components: `Button` · `Spinner` · `HealthBar` · `PlayerAvatar` · `CargoPanel` · `CargoGauge`
@@ -82,10 +82,10 @@ Icons: none yet
 `math/`: `clamp` · `lerp` · `distance2D` · `toRadians` · `toDegrees`
 `random/`: `randomInt` · `randomFloat` · `randomPick` · `shuffle` · `seededRandom`
 `helpers/`: `slugify` · `capitalize` · `omit` · `groupBy` · `debounce`
-`game/`: `isResourceTypeAllowed` · `computeExtractionYield` · `computeExtractionYieldPerTick` · `getCargoUsed` · `isCargoFull` · `clampYieldToCargoCapacity` · `addYieldToCargo` · `UnitCargo`
+`game/`: `isResourceTypeAllowed` · `computeExtractionYield` · `computeExtractionYieldPerTick` · `getCargoUsed` · `isCargoFull` · `clampYieldToCargoCapacity` · `addYieldToCargo` · `hasEnoughCargoForRecipe` · `getBuildFootprintCells` · `resolveBuildTargetPosition` · `UnitCargo`
 
 ### `shared-types`
-`Player` · `PlayerSummary` · `Item` · `InventorySlot` · `ItemRarity` · `Packet` · `ErrorPacket` · `GameEvent` · `GameEventName` · `ChatMessageEvent` · `PlayerMoveEvent` · `UnitRuleRange` · `UnitRule` · `UnitCargoCapability` · `UnitExtractionCapability` · `UnitBuildTarget` · `UnitBuildingCapability` · `UnitCapabilities` · `UnitRecipeIngredients` · `UnitRecipe` · `UnitTypeDefinition` · `BuildableUnitType`
+`Player` · `PlayerSummary` · `Item` · `InventorySlot` · `ItemRarity` · `Packet` · `ErrorPacket` · `GameEvent` · `GameEventName` · `ChatMessageEvent` · `PlayerMoveEvent` · `UnitRuleRange` · `UnitRule` · `UnitCargoCapability` · `UnitExtractionCapability` · `UnitBuildTarget` · `UnitBuildingCapability` · `UnitGarageCapability` · `UnitCapabilities` · `UnitRecipeIngredients` · `UnitRecipe` · `UnitTypeDefinition` · `BuildableUnitType`
 
 ---
 
