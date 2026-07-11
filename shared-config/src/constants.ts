@@ -109,6 +109,8 @@ export const ENTERABLE_PLANET_TYPES: readonly EnterablePlanetType[] =
 
 export const RESOURCE_RARITIES = [
   "common",
+  "occasional",
+  "transformed",
   "rare",
   "epic",
   "legendary",

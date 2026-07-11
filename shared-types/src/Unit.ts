@@ -1,4 +1,5 @@
 import type {
+  TransformedResourceType,
   UnitCategory,
   UnitRuleRange,
   UnitSize,
@@ -24,6 +25,16 @@ export interface UnitCargoCapability {
 export interface UnitExtractionCapability {
   speed: number;
   types: string[];
+}
+
+/**
+ * Resource transformation on planet surface.
+ * `speed` is a multiplier applied to transformation progress per tick.
+ * `types` lists allowed transformed resource ids from TRANSFORMED_RESOURCES.
+ */
+export interface UnitTransformationCapability {
+  speed: number;
+  types: TransformedResourceType[];
 }
 
 /** What a "building" capability may construct, for one unit category. */
@@ -55,6 +66,7 @@ export type UnitGarageCapability = Record<UnitSize, number>;
 export interface UnitCapabilities {
   cargo?: UnitCargoCapability;
   extraction?: UnitExtractionCapability;
+  transformation?: UnitTransformationCapability;
   building?: UnitBuildingCapability;
   garage?: UnitGarageCapability;
 }
