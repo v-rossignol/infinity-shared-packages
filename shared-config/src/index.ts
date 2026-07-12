@@ -1,3 +1,4 @@
+export * from "./building-zones";
 export * from "./colors";
 export * from "./constants";
 export * from "./settings";
